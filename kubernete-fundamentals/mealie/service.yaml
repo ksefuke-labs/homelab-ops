@@ -12,4 +12,4 @@ spec:
     targetPort: 9000
   selector:
     app: mealie
-  type: ClusterIP
+  type: LoadBalancer
