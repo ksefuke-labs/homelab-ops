@@ -6,7 +6,7 @@ metadata:
   name: mealie
   namespace: mealie
 spec:
-  replicas: 1 #Default DB doesn't support concurrent write from multiple instances. Might try PSQL later
+  replicas: 1
   selector:
     matchLabels:
       app: mealie
@@ -20,3 +20,10 @@ spec:
         name: mealie
         ports: 
           - containerPort: 9000
+        volumeMounts:
+          - mountPath: /app/data
+            name: mealie-data
+      volumes:
+        - name: mealie-data
+          persistentVolumeClaim: # PVC Claim in storage.yaml
+            claimName: mealie-data-pvc
