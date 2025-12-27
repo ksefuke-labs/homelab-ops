@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: mealie
-  name: mealie
+  name: mealie-service # name of the service
   namespace: mealie
 spec:
   ports:
