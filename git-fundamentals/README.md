@@ -3,10 +3,10 @@
 Git is a distributed version control system (VCS) for tracking changes made to computer files and coordinating work on these with with multiple people.
 It helps you keep track of changes made to your code similar to browser history tab. Allowing you revert to a stable state if you encounter fatal errors while coding.
 In addition to allowing to view the changes you made to code over time
-![[image-57.png|600x244]]
+![[git-change-examples.png|600x244]]
 ## Git Workflow
 consist of the following: **Working Directory**, **Staging Area**, **Local Repository** and **Remote Repository**.
-![[image-56.png|509x299]]
+![[git-workflow.png|509x299]]
 
 A file in a working directory can be in three possible state
 - **It can be staged** - Which means the files with the updated changes are marked to be committed to the local repository but not yet committed. Done with `git add` , which is a command used to add a file that is in the working directory to the staging area.
@@ -55,12 +55,11 @@ git remote -v # List the remote connections you have to other repositories.
 git push -u origin master # pushes changes to origin
 ```
 ## Commit Best Practise
-Sources: [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/) [Kubecraft - Git Fundamentals](https://www.skool.com/kubecraft/classroom/1c6ab39e?md=e68811f0d8734c719d76db7062fd6e64)
 Best Practises with committing make it easier to work in teams and interpret changes 
 ### Branch
 A parallel version of master for working of features
 Committing to the `master`  branch directly is against best practise as the master branch represents working stable code.
-New Features
+New Features should be pushed to a new branch before being merged with master
 
 ### Commit Structuring:
 Basic Structure:
@@ -113,3 +112,8 @@ incoming responses other than from latest request.
 
 Reviewed-by: Kasonde A. Sefuke
 Refs: #123
+
+## Sources
+- [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/)
+- [Kubecraft - Git Fundamentals](https://www.skool.com/kubecraft/classroom/1c6ab39e?md=e68811f0d8734c719d76db7062fd6e64)
+- [Freecodecamp - Git Basics](https://www.freecodecamp.org/news/learn-the-basics-of-git-in-under-10-minutes-da548267cc91/)
