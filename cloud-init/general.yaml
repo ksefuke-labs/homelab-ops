@@ -1,0 +1,10 @@
+#cloud-config
+packages:
+    - autofs
+    - btop
+    - git
+    - nfs-common
+runcmd:
+    - apt-get update -y
+    - apt-get install -y qemu-guest-agent gnupg
+    - reboot

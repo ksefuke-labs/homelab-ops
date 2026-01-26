@@ -1,0 +1,6 @@
+#cloud-config
+runcmd:
+    - dnf update
+    - dnf -y install qemu-guest-agent gnupg git btop autofs nfs-utils nano
+    - dnf -y upgrade
+    - reboot
