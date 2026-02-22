@@ -5,3 +5,4 @@ resources:
   - repository.yaml
   - release.yaml
   - grafana-admin-secret.yaml
+  - grafana-tls-secret.yaml
