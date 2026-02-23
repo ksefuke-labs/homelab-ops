@@ -7,4 +7,4 @@ spec:
     - port: 3005
   selector:
     app: audiobookshelf
-  type: ClusterIP
+  type: LoadBalancer
