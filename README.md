@@ -75,8 +75,7 @@ Powered by **[Talos Linux](https://www.talos.dev)**, managed with **[FluxCD](htt
 
 > ⚠️ Configuration is still in progress.
 
-![Cluster Diagram](assets/cluster-diagram.png)
-
+obsidian://open?vault=Zettlekasten&file=00%20Assets%2FAttachments%2Fimage-106.png
 ---
 
 ## 🧩 Core Components
