@@ -68,7 +68,7 @@ data:
     no-autoupdate: true
 
     ingress:
-    - hostname: abs.ksefuke-labs.com
+    - hostname: abs.staging.ksefuke-labs.com
       service: http://audiobookshelf:3005
 
     # This rule sends traffic to the built-in hello-world HTTP server. This can help debug connectivity
