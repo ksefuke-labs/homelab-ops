@@ -1,0 +1,15 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: audiobookshelf
+  namespace: audiobookshelf
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - kind: Rule
+    match: Host(`abs.staging.ksefuke-labs.com`)
+    services:
+    - name: audiobookshelf
+      namespace: audiobookshelf
+      port: 3005
