@@ -46,17 +46,16 @@ spec:
         exposedPort: 80
         protocol: TCP
         # Redirect HTTP to HTTPS
-        redirectTo:
-          port: websecure
-          priority: 10
+        redirections:
+          entryPoints:
+            to: websecure
+            permanent: true
 
       # HTTPS entrypoint
       websecure:
         port: 8443
         exposedPort: 443
         protocol: TCP
-        tls:
-          enabled: true
 
     providers:
       # Enable Kubernetes CRD provider
