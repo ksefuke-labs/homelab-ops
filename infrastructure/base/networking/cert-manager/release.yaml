@@ -14,9 +14,21 @@ spec:
         name: cert-manager
         namespace: cert-manager
       reconcileStrategy: ChartVersion
+  install:
+    # Create or replace CRDs to ensure they match the chart version
+    crds: CreateReplace
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+  upgrade:
+    # Also apply CRD updates during upgrades
+    crds: CreateReplace
+    remediation:
+      retries: 3
+      remediateLastFailure: true
   values:
     crds:
-      enabled: true
+      enabled: false
     dns01RecursiveNameservers: "1.1.1.1:53,1.0.0.1:53"
     dns01RecursiveNameserversOnly: true
     enableCertificateOwnerRef: false
