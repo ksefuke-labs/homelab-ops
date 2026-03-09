@@ -10,7 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./cluster/staging/infra
+  path: ./clusters/staging/infra
   prune: false
   wait: true
   decryption:
