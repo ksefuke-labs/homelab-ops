@@ -1,18 +1,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name:  infrastructure
+  name: renovate
   namespace: flux-system
 spec:
-  interval: 10m
-  retryInterval: 1m
+  interval: 15m
   timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./cluster/staging/infra
-  prune: false
-  wait: true
+  path: ./infrastructure/base/controllers/renovate
+  prune: true
   decryption:
     provider: sops
     secretRef:
