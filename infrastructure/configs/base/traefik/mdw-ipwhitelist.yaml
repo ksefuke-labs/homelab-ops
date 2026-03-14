@@ -1,0 +1,11 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: internal-only
+  namespace: traefik
+spec:
+  ipAllowList:
+    sourceRange:
+      - 10.52.100.0/24
+      - 192.168.10.0/24
+      - 192.168.20.0/24
