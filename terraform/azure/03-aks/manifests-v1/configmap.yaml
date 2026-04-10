@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: n8n-configmap
+data:
+  N8N_PORT: "3008"
+  N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
+  N8N_SECURE_COOKIE: "false"
+  DB_TYPE: "postgresdb"
+  DB_POSTGRESDB_HOST: "psql-n8n-mercury.postgres.database.azure.com"
+  DB_POSTGRESDB_PORT: "5432"
+  DB_POSTGRESDB_DATABASE: "n8n"
+  DB_POSTGRESDB_USER: "n8nadmin"
+  DB_POSTGRESDB_PASSWORD: "n8n-password-123"
