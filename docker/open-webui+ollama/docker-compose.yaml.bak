@@ -1,0 +1,19 @@
+services:
+  services:
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:main-slim
+    ports:
+      - "3000:8080"
+    volumes:
+      - open-webui:/app/backend/data
+
+  ollama:
+    devices:
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    image: ollama/ollama:${OLLAMA_DOCKER_TAG-rocm}
+    environment:
+      - 'HSA_OVERRIDE_GFX_VERSION=${HSA_OVERRIDE_GFX_VERSION-11.0.0}'
+
+volumes:
+  open-webui:
