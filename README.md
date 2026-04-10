@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div align="center">
 
 # 🏠 Kubernetes Homelab
@@ -104,5 +105,3 @@ Powered by **[Talos Linux](https://www.talos.dev)**, managed with **[FluxCD](htt
 - [ ] **📦 Services** — Migrate remaining Docker services to the cluster
 - [ ] **🔐 Security** — RBAC rollout, deploy Wazuh XDR/SIEM and CrowdSec, implement authentication
 - [ ] **🖥️ VDI** — Deploy [Kasm Workspaces](https://www.kasmweb.com/)
-
-

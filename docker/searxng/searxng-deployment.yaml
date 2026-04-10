@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose --file searxng/docker-compose.yaml convert
+    kompose.version: 1.38.0 (a8f5d1cbd)
+  labels:
+    io.kompose.service: searxng
+  name: searxng
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: searxng
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose --file searxng/docker-compose.yaml convert
+        kompose.version: 1.38.0 (a8f5d1cbd)
+      labels:
+        io.kompose.service: searxng
+    spec:
+      containers:
+        - env:
+            - name: SEARXNG_BASE_URL
+              value: https://localhost/
+          image: docker.io/searxng/searxng:latest
+          name: searxng
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/searxng
+              name: searxng-claim0
+            - mountPath: /var/cache/searxng
+              name: searxng-data
+      restartPolicy: Always
+      volumes:
+        - name: searxng-claim0
+          persistentVolumeClaim:
+            claimName: searxng-claim0
+        - name: searxng-data
+          persistentVolumeClaim:
+            claimName: searxng-data

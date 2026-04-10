@@ -1,0 +1,14 @@
+name: ksblog
+
+services:
+  server:
+    image: hugomods/hugo:exts-non-root
+    command: server -D
+    volumes:
+      - ./ksblog:/src
+      - ~/hugo_cache:/tmp/hugo_cache
+    #environment:
+    #  - PUID=1000
+    #  - PGID=1000
+    ports:
+      - 1313:1313

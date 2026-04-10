@@ -1,0 +1,126 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose --file docker-compose.yml convert
+    kompose.version: 1.38.0 (a8f5d1cbd)
+  labels:
+    io.kompose.service: opencloud
+  name: opencloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: opencloud
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose --file docker-compose.yml convert
+        kompose.version: 1.38.0 (a8f5d1cbd)
+      labels:
+        io.kompose.service: opencloud
+    spec:
+      containers:
+        - args:
+            - -c
+            - opencloud init || true; opencloud server
+          command:
+            - /bin/sh
+          env:
+            - name: FRONTEND_ARCHIVER_MAX_SIZE
+              value: "10000000000"
+            - name: FRONTEND_CHECK_FOR_UPDATES
+              value: "true"
+            - name: IDM_ADMIN_PASSWORD
+            - name: IDM_CREATE_DEMO_USERS
+              value: "false"
+            - name: NOTIFICATIONS_SMTP_AUTHENTICATION
+            - name: NOTIFICATIONS_SMTP_ENCRYPTION
+              value: none
+            - name: NOTIFICATIONS_SMTP_HOST
+            - name: NOTIFICATIONS_SMTP_INSECURE
+              value: "false"
+            - name: NOTIFICATIONS_SMTP_PASSWORD
+            - name: NOTIFICATIONS_SMTP_PORT
+            - name: NOTIFICATIONS_SMTP_SENDER
+              value: OpenCloud Notifications <notifications@cloud.opencloud.test>
+            - name: NOTIFICATIONS_SMTP_USERNAME
+            - name: OC_ADD_RUN_SERVICES
+            - name: OC_DEFAULT_LANGUAGE
+            - name: OC_INSECURE
+              value: "false"
+            - name: OC_LOG_COLOR
+              value: "false"
+            - name: OC_LOG_LEVEL
+              value: info
+            - name: OC_LOG_PRETTY
+              value: "false"
+            - name: OC_PASSWORD_POLICY_BANNED_PASSWORDS_LIST
+              value: banned-password-list.txt
+            - name: OC_PASSWORD_POLICY_DISABLED
+              value: "false"
+            - name: OC_PASSWORD_POLICY_MIN_CHARACTERS
+              value: "8"
+            - name: OC_PASSWORD_POLICY_MIN_DIGITS
+              value: "1"
+            - name: OC_PASSWORD_POLICY_MIN_LOWERCASE_CHARACTERS
+              value: "1"
+            - name: OC_PASSWORD_POLICY_MIN_SPECIAL_CHARACTERS
+              value: "1"
+            - name: OC_PASSWORD_POLICY_MIN_UPPERCASE_CHARACTERS
+              value: "1"
+            - name: OC_SHARING_PUBLIC_SHARE_MUST_HAVE_PASSWORD
+              value: "true"
+            - name: OC_SHARING_PUBLIC_WRITEABLE_SHARE_MUST_HAVE_PASSWORD
+              value: "false"
+            - name: OC_URL
+              value: https://cloud.opencloud.test
+            - name: PROXY_CSP_CONFIG_FILE_LOCATION
+              value: /etc/opencloud/csp.yaml
+            - name: PROXY_ENABLE_BASIC_AUTH
+              value: "false"
+            - name: PROXY_TLS
+              value: "false"
+          image: opencloudeu/opencloud-rolling:5.2.0
+          name: opencloud
+          securityContext:
+            runAsGroup: 1000
+            runAsUser: 1000
+          volumeMounts:
+            - mountPath: /etc/opencloud/csp.yaml
+              name: opencloud-cm0
+              subPath: csp.yaml
+            - mountPath: /etc/opencloud/banned-password-list.txt
+              name: opencloud-cm1
+              subPath: banned-password-list.txt
+            - mountPath: /etc/opencloud
+              name: opencloud-config
+            - mountPath: /var/lib/opencloud
+              name: opencloud-data
+            - mountPath: /var/lib/opencloud/web/assets/apps
+              name: opencloud-cm4
+      restartPolicy: Always
+      volumes:
+        - configMap:
+            items:
+              - key: csp.yaml
+                path: csp.yaml
+            name: opencloud-cm0
+          name: opencloud-cm0
+        - configMap:
+            items:
+              - key: banned-password-list.txt
+                path: banned-password-list.txt
+            name: opencloud-cm1
+          name: opencloud-cm1
+        - name: opencloud-config
+          persistentVolumeClaim:
+            claimName: opencloud-config
+        - name: opencloud-data
+          persistentVolumeClaim:
+            claimName: opencloud-data
+        - configMap:
+            name: opencloud-cm4
+          name: opencloud-cm4
