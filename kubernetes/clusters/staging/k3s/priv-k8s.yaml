@@ -9,7 +9,7 @@ spec:
     branch: main
   secretRef:
     name: flux-system
-  url: https://github.com/ksefuke-labs/kubernetes-homelab-priv
+  url: https://github.com/ksefuke-labs/homelab-ops-private
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
