@@ -1,0 +1,85 @@
+talosVersion: v1.12.6
+kubernetesVersion: v1.35.3
+
+clusterName: folkvangr
+endpoint: https://k8s.folkvangr.internal:6443
+
+# Disable built-in Flannel to use Cilium
+#cniConfig:
+#  name: none
+
+nodes:
+  - hostname: controller
+    controlPlane: true
+    ipAddress: 10.52.100.50, 10.52.100.51, 10.52.100.52
+    ignoreHostname: true
+    installDisk: /dev/sda
+
+  - hostname: worker
+    controlPlane: false
+    ipAddress: 10.52.100.55, 10.52.100.56, 10.52.100.56
+    ignoreHostname: true
+    installDisk: /dev/sda
+  
+
+
+
+# Global patches
+patches:
+  - "@./patches/misc/resolver-config.yaml"     # Internal Search Domain
+  - "@./patches/misc/time-sync-config.yaml"   # OPNsense NTP servers
+
+
+controlPlane:
+  schematic:
+    customization:
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/intel-ucode
+          - siderolabs/netbird
+          - siderolabs/newt
+          - siderolabs/qemu-guest-agent
+        
+
+worker:
+  schematic:
+    customization:
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/i915
+          - siderolabs/intel-ucode
+          - siderolabs/iscsi-tools
+          - siderolabs/mei
+          - siderolabs/netbird
+          - siderolabs/newt
+          - siderolabs/qemu-guest-agent
+          - siderolabs/util-linux-tools
+  
+  patches:
+  - "@./patches/misc/intel-gpu.yaml" # Loads intel igpu kernel module
+  - |-
+        ---
+        apiVersion: v1alpha1
+        kind: UserVolumeConfig
+        name: longhorn
+        provisioning:
+          diskSelector:
+            match: "'/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1' in disk.symlinks"
+          grow: false
+          minSize: 1GB
+          maxSize: 537GB
+        ---
+        machine:
+          kubelet:
+            extraMounts:
+              - destination: /var/mnt/longhorn
+                type: bind
+                source: /var/mnt/longhorn
+                options:
+                  - bind
+                  - rshared
+                  - rw
+
+    
+    #- "@./patches/longhorn/extramounts.yaml" # Longhorn data path mounts
+    #- "@./patches/longhorn/user-volume.yaml" # Longhorn user volume
