@@ -2,3 +2,6 @@ subscription_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 tenant_id       = "yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy"
 client_id       = "zzzzzzzz-zzzz-zzzz-zzzz-zzzzzzzzzzzz"
 client_secret   = "YOUR_CLIENT_SECRET_HERE"
+
+n8n-psql-login = "username
+n8n-psql-password = "password"
