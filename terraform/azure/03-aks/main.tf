@@ -13,12 +13,6 @@ provider "azurerm" {
   subscription_id = var.subscription_id
 }
 
-variable "subscription_id" {
-  description = "Azure Subscription ID"
-  type        = string
-  sensitive   = true
-}
-
 resource "azurerm_resource_group" "aks" {
   name     = "rg-aks-testing"
   location = "UK West"
