@@ -57,3 +57,6 @@ worker.yaml
 folkvangr-controller.yaml
 folkvangr-worker.yaml
 talosconfig
+
+#Docker
+.env
