@@ -13,7 +13,13 @@ provider "azurerm" {
   subscription_id = var.subscription_id
 }
 
-# Customer 1: CATO Corporation
+variable "subscription_id" {
+  description = "Azure Subscription ID"
+  type        = string
+  sensitive   = true
+}
+
+# Customer 1: Black Dynamite
 module "black-dynamite" {
   source = "./modules/customer-infrastructure"
   customer_name           = "black-dynamite"
@@ -24,7 +30,7 @@ module "black-dynamite" {
 }
 
 # Customer 2: Fiendish-doctor-wu
-#module "fdw" {
+#module "fiendish-doctor-wu" {
 #  source = "./modules/customer-infrastructure"
 #
 #  customer_name           = "fiendish-doctor-wu"
@@ -51,17 +57,17 @@ output "black-dynamite_postgres" {
 }
 
 # # Outputs for Customer 2
-# output "cicero_vm_ip" {
+# output "fiendish-doctor-wu_vm_ip" {
 #   description = "Cicero VM public IP"
 #   value       = module.cicero.vm_public_ip
 # }
 #
-# output "cicero_ssh" {
-#   description = "Cicero SSH connection"
-#   value       = module.cicero.ssh_connection
+# output "fiendish-doctor-wu_ssh" {
+#   description = "fiendish-doctor-wu connection"
+#   value       = module.fiendish-doctor-wu.ssh_connection
 # }
 #
-# output "cicero_postgres" {
-#   description = "Cicero PostgreSQL FQDN"
-#   value       = module.cicero.postgres_fqdn
+# output "fiendish-doctor-wu_postgres" {
+#   description = "fiendish-doctor-wu PostgreSQL FQDN"
+#   value       = module.fiendish-doctor-wu.postgres_fqdn
 # }
