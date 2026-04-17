@@ -1,4 +1,4 @@
-# Deploy n8n using SQLite database
+# Deply n8n with external Postgres database
 
 apiVersion: apps/v1
 kind: Deployment
