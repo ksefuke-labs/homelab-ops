@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fossflow
+  namespace: fossflow
+  labels:
+    app: fossflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fossflow
+  template:
+    metadata:
+      labels:
+        app: fossflow
+    spec:
+      containers:
+        - name: fossflow
+          image: stnsmith/fossflow:latest
+          envFrom:
+          - configMapRef:
+              name: fossflow-configmap
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+          
+          securityContext:
+            allowPrivilegeEscalation: false
+          
+          volumeMounts:
+          - mountPath: /data/diagrams
+            name: fossflow-config
+      
+      securityContext:
+        fsGroup: 1000 # www-data group ID
+        runAsUser: 1000 # www-data user ID
+        runAsGroup: 1000 # www-data group ID
+      restartPolicy: Always
+      volumes:
+        - name: fossflow-config
+          persistentVolumeClaim: # PVC Claim in storage.yaml
+            claimName: fossflow-config-pvc

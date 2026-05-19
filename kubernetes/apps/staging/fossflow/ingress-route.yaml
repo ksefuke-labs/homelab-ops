@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: fossflow
+  namespace: fossflow
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - kind: Rule
+    match: Host(`ff.staging.ksefuke-labs.com`)
+    services:
+    - name: fossflow
+      namespace: fossflow
+      port: 80
+  tls:
+    secretName: staging-ksefuke-labs-tls

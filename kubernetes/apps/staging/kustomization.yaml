@@ -3,5 +3,7 @@ kind: Kustomization
 resources:
   #- ./audiobookshelf
   - ./excalidraw
+  - ./fossflow
+  - ./karakeep
   #  - ./linkding
   #  - ./n8n
