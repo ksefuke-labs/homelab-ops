@@ -34,17 +34,24 @@ spec:
       ingress:
         enabled: true
         ingressClassName: traefik
-      #annotations: {} - Potentially needed by cert manager
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: "true"
-
-      ## Hostnames.Must be provided if Ingress is enable.
         hosts:
           - grfs.staging.ksefuke-labs.com
-
-      ## TLS configuration for grafana Ingress
-      ## Secret must be manually created in the namespace
         tls:
           - secretName: staging-ksefuke-labs-tls
             hosts:
               - grfs.staging.ksefuke-labs.com
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          cpu: 1000m
+          memory: 1Gi
+    prometheus:
+        resources:
+          requests:
+            cpu: 200m
+            memory: 1500Mi
+          limits:
+            cpu: 2000m
+            memory: 3Gi
