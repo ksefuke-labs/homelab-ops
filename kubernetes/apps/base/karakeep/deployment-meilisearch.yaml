@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meilisearch
+  namespace: karakeep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: meilisearch
+  template:
+    metadata:
+      labels:
+        app: meilisearch
+    spec:
+      containers:
+        - name: meilisearch
+          image: getmeili/meilisearch:v1.41.0
+          env:
+            - name: MEILI_NO_ANALYTICS
+              value: "true"
+          envFrom:
+            - secretRef:
+                name: karakeep-secrets
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          volumeMounts:
+            - mountPath: /meili_data
+              name: meilisearch
+
+      volumes:
+        - name: meilisearch
+          persistentVolumeClaim:
+            claimName: meilisearch-pvc

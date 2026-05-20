@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: karakeep-web
+  namespace: karakeep
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - kind: Rule
+    match: Host(`karakeep.staging.ksefuke-labs.com`)
+    services:
+    - name: karakeep-web
+      namespace: karakeep
+      port: 3000
+  tls:
+    secretName: staging-ksefuke-labs-tls
