@@ -14,11 +14,13 @@ spec:
         name: traefik
         namespace: traefik
       interval: 1h
+
   install:
     createNamespace: true
     remediation:
       retries: 3
   upgrade:
+    force: true
     remediation:
       retries: 3
   
@@ -76,6 +78,6 @@ spec:
     ingressRoute:
       dashboard:
         enabled: true
-        matchRule: Host(`traefik.staging.internal`)
+        matchRule: Host(`traefik.staging.ksefuke-labs`)
         entryPoints:
           - web
