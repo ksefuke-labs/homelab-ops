@@ -1,10 +1,44 @@
 #cloud-config
+users:
+  - name: echo
+    groups: users, admin
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
 packages:
-    - autofs
     - btop
     - git
-    - nfs-common
+    - logrotate
+    - qemu-guest-agent
+    - unattended-upgrades
+    - wget
+package_update: true
+package_upgrade: true
+write_files:
+  - path: /etc/ssh/sshd_config.d/ssh-hardening.conf
+    content: |
+      PermitRootLogin no
+      PasswordAuthentication no
+      Port 22
+      KbdInteractiveAuthentication no
+      ChallengeResponseAuthentication no
+      MaxAuthTries 2
+      LoginGraceTime 30
+      AllowTcpForwarding no
+      X11Forwarding no
+      AllowAgentForwarding no
+      AuthorizedKeysFile .ssh/authorized_keys
+      AllowUsers echo
 runcmd:
-    - apt-get update -y
-    - apt-get install -y qemu-guest-agent gnupg
+    - printf "[sshd]\nenabled = true\nport = ssh, 7794\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
+    - systemctl enable fail2ban
+    - dpkg-reconfigure unattended-upgrades
+    - timedatectl set-timezone Europe/London
+    - systemctl enable --now systemd-timesyncd
+    - ufw default deny incoming
+    - ufw default allow outgoing
+    - ufw allow 80/tcp
+    - ufw allow 443/tcp
+    - ufw allow 22/tcp
+    - ufw enable
     - reboot

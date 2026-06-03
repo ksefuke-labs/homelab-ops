@@ -1,0 +1,42 @@
+#cloud-config
+users:
+  - name: $username
+    groups: users, admin
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - <public_ssh_key>
+packages:
+  - curl
+  - fail2ban
+  - git
+  - gnupg
+  - lograte
+  - ufw
+  - unattended-upgrades
+  - wget
+package_update: true
+package_upgrade: true
+write_files:
+  - path: /etc/ssh/sshd_config.d/ssh-hardening.conf
+    content: |
+      PermitRootLogin no
+      PasswordAuthentication no
+      Port $non-standard port
+      KbdInteractiveAuthentication no
+      ChallengeResponseAuthentication no
+      MaxAuthTries 2
+      LoginGraceTime 30
+      AllowTcpForwarding no
+      X11Forwarding no
+      AllowAgentForwarding no
+      AuthorizedKeysFile .ssh/authorized_keys
+      AllowUsers $username
+runcmd:
+  - printf "[sshd]\nenabled = true\nport = ssh, $non-standard port\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
+  - systemctl enable fail2ban
+  - timedatectk set-timezone Europe/London
+  - systemctl enable --now systemd-timesyncd
+  - ufw allow $non-standard port
+  - ufw enable
+  - reboot

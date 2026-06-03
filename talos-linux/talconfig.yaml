@@ -5,8 +5,8 @@ clusterName: folkvangr
 endpoint: https://k8s.folkvangr.internal:6443
 
 # Disable built-in Flannel to use Cilium
-#cniConfig:
-#  name: none
+cniConfig:
+  name: none
 
 nodes:
   - hostname: controller
@@ -37,7 +37,6 @@ controlPlane:
         officialExtensions:
           - siderolabs/intel-ucode
           - siderolabs/netbird
-          - siderolabs/newt
           - siderolabs/qemu-guest-agent
         
 
@@ -49,9 +48,7 @@ worker:
           - siderolabs/i915
           - siderolabs/intel-ucode
           - siderolabs/iscsi-tools
-          - siderolabs/mei
           - siderolabs/netbird
-          - siderolabs/newt
           - siderolabs/qemu-guest-agent
           - siderolabs/util-linux-tools
   
@@ -79,7 +76,3 @@ worker:
                   - bind
                   - rshared
                   - rw
-
-    
-    #- "@./patches/longhorn/extramounts.yaml" # Longhorn data path mounts
-    #- "@./patches/longhorn/user-volume.yaml" # Longhorn user volume
