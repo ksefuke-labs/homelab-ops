@@ -13,15 +13,15 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: longhorn-repo
-      version: v1.11.1
+      version: v1.12.0
   values:
     defaultSettings:
       # -- Percentage of minimum available disk capacity. When the minimum available capacity exceeds the total available capacity, the disk becomes unschedulable until more space is made available for use. The default value is "25".
-      storageMinimalAvailablePercentage: "15"
+      storageMinimalAvailablePercentage: "5"
       # -- Percentage of disk space that is not allocated to the default disk on each new Longhorn node.
-      storageReservedPercentageForDefaultDisk: "10"
+      storageReservedPercentageForDefaultDisk: "5"
       defaultDataPath: /var/mnt/longhorn
-      defaultReplicaCount: 2
+      defaultReplicaCount: 1
         # -- Default number of replicas for volumes created using the Longhorn UI. For Kubernetes configuration, modify the `numberOfReplicas` field in the StorageClass. The default value is "{"v1":"3","v2":"3"}".
     #defaultBackupStore:
         # -- Endpoint used to access the default backupstore. (Options: "NFS", "CIFS", "AWS", "GCP", "AZURE")
@@ -31,9 +31,21 @@ spec:
       defaultClass: true
       # -- Filesystem type of the default Longhorn StorageClass.
       defaultFsType: xfs
-      defaultClassReplicaCount: 2
+      defaultClassReplicaCount: 1
        # -- Data locality of the default Longhorn StorageClass. (Options: "disabled", "best-effort")
       defaultDataLocality: best-effort
       # -- Data locality of the default Longhorn StorageClass. (Options: "disabled", "best-effort")
       reclaimPolicy: Retain
       # -- Reclaim policy that provides instructions for handling of a volume after its claim is released. (Options: "Retain", "Delete")
+    csi:
+      # -- Replica count of the CSI Attacher. When unspecified, Longhorn uses the default value ("3").
+      attacherReplicaCount: 1
+      # -- Replica count of the CSI Provisioner. When unspecified, Longhorn uses the default value ("3").
+      provisionerReplicaCount: 1
+      # -- Replica count of the CSI Resizer. When unspecified, Longhorn uses the default value ("3").
+      resizerReplicaCount: 1
+      # -- Replica count of the CSI Snapshotter. When unspecified, Longhorn uses the default value ("3").
+      snapshotterReplicaCount: 1
+    longhornUI:
+      # -- Replica count for Longhorn UI.
+      replicas: 1
