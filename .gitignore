@@ -60,8 +60,6 @@ admin/deploy_key_gitops
 
 ## Talhelper
 clusterconfig
-controller.yaml
-worker.yaml
-folkvangr-controller.yaml
-folkvangr-worker.yaml
+*controller.yaml
+*worker.yaml
 talosconfig
