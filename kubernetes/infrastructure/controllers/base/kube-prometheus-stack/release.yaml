@@ -35,11 +35,11 @@ spec:
         enabled: true
         ingressClassName: traefik
         hosts:
-          - grfs.staging.ksefuke-labs.com
+          - grfs.ksefuke-labs.com
         tls:
-          - secretName: staging-ksefuke-labs-tls
+          - secretName: prod-ksefuke-labs-tls
             hosts:
-              - grfs.staging.ksefuke-labs.com
+              - grfs.ksefuke-labs.com
       resources:
         requests:
           cpu: 100m

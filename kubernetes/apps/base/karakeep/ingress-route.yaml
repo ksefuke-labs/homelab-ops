@@ -14,4 +14,4 @@ spec:
       namespace: karakeep
       port: 3000
   tls:
-    secretName: staging-ksefuke-labs-tls
+    secretName: prod-ksefuke-labs-tls
