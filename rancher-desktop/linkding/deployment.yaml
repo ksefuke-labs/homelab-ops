@@ -16,7 +16,7 @@ spec:
         app: linkding
     spec:
       containers:
-      - image: ghcr.io/sissbruecker/linkding:1.44.2-plus-alpine
+      - image: ghcr.io/sissbruecker/linkding:1.45.0-plus-alpine
         name: linkding
         ports: 
           - containerPort: 9090
