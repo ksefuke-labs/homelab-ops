@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: reloader
-      version: "2.2.9"
+      version: "2.2.12"
       sourceRef:
         kind: HelmRepository
         name: stakater
@@ -16,13 +16,13 @@ spec:
     resources:
       requests:
         cpu: 10m
-        memory: 64Mi
+        memory: 128Mi
       limits:
         cpu: 100m
         memory: 256Mi
     
     reloader:
-      autoReloadAll: false
+      autoReloadAll: true
       ignoreSecrets: false
       ignoreConfigMaps: false
       # Set to true to exclude Job workloads from automatic reload monitoring
@@ -31,8 +31,8 @@ spec:
       # Set to true to exclude CronJob workloads from automatic reload monitoring
       # Useful when you don't want CronJobs to be restarted when their referenced ConfigMaps/Secrets change
       ignoreCronJobs: false
-      reloadOnCreate: false
-      reloadOnDelete: false
+      reloadOnCreate: true
+      reloadOnDelete: true
       syncAfterRestart: false
       watchGlobally: true
       readOnlyRootFileSystem: false
