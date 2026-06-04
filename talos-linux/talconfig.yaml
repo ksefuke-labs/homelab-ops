@@ -1,23 +1,19 @@
-talosVersion: v1.12.6
+talosVersion: v1.13.0
 kubernetesVersion: v1.35.3
 
-clusterName: folkvangr
-endpoint: https://k8s.folkvangr.internal:6443
-
-# Disable built-in Flannel to use Cilium
-cniConfig:
-  name: none
+clusterName: Jotunn
+endpoint: https://k8s.jotunn.internal:6443
 
 nodes:
   - hostname: controller
     controlPlane: true
-    ipAddress: 10.52.100.50, 10.52.100.51, 10.52.100.52
+    ipAddress: 10.52.100.12
     ignoreHostname: true
     installDisk: /dev/sda
 
   - hostname: worker
     controlPlane: false
-    ipAddress: 10.52.100.55, 10.52.100.56, 10.52.100.56
+    ipAddress: 10.52.100.13, 10.52.100.14
     ignoreHostname: true
     installDisk: /dev/sda
   
@@ -35,8 +31,7 @@ controlPlane:
     customization:
       systemExtensions:
         officialExtensions:
-          - siderolabs/intel-ucode
-          - siderolabs/netbird
+          - siderolabs/newt
           - siderolabs/qemu-guest-agent
         
 
@@ -45,15 +40,13 @@ worker:
     customization:
       systemExtensions:
         officialExtensions:
-          - siderolabs/i915
-          - siderolabs/intel-ucode
           - siderolabs/iscsi-tools
-          - siderolabs/netbird
+          - siderolabs/newt
           - siderolabs/qemu-guest-agent
           - siderolabs/util-linux-tools
   
   patches:
-  - "@./patches/misc/intel-gpu.yaml" # Loads intel igpu kernel module
+  #- "@./patches/misc/intel-gpu.yaml" # Loads intel igpu kernel module
   - |-
         ---
         apiVersion: v1alpha1
@@ -64,7 +57,7 @@ worker:
             match: "'/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1' in disk.symlinks"
           grow: false
           minSize: 1GB
-          maxSize: 537GB
+          maxSize: 100GB
         ---
         machine:
           kubelet:
