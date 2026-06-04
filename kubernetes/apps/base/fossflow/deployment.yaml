@@ -5,6 +5,8 @@ metadata:
   namespace: fossflow
   labels:
     app: fossflow
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
