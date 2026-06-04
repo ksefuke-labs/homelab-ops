@@ -8,7 +8,7 @@ spec:
     - websecure
   routes:
   - kind: Rule
-    match: Host(`karakeep.staging.ksefuke-labs.com`)
+    match: Host(`karakeep.ksefuke-labs.com`)
     services:
     - name: karakeep-web
       namespace: karakeep
