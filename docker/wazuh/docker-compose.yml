@@ -1,7 +1,7 @@
 # Wazuh App Copyright (C) 2017, Wazuh Inc. (License GPLv2)
 services:
   wazuh.manager:
-    image: wazuh/wazuh-manager:4.14.1
+    image: wazuh/wazuh-manager:4.14.5
     hostname: wazuh.manager
     restart: always
     ulimits:
