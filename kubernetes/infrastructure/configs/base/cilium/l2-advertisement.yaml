@@ -4,3 +4,4 @@ metadata:
   name: default-policy
 spec:
   loadBalancerIPs: true
+  externalIPs: true
