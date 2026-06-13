@@ -9,5 +9,6 @@ resources:
   - ./reflector
   - ./renovate
   - ./reloader
+  - ./spegel
   - ./traefik
   
