@@ -1,0 +1,61 @@
+talosVersion: v1.13.3
+kubernetesVersion: v1.36.1
+clusterName: folkvangr
+endpoint: https://k8s.folkvangr.internal:6443
+cniConfig:
+  name: none
+nodes:
+  - hostname: controller
+    controlPlane: true
+    ipAddress: 10.52.150.75, 10.52.100.76, 10.52.100.77
+    ignoreHostname: true
+    installDisk: /dev/sda
+  
+controlPlane:
+  schematic:
+    customization:
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/intel-ucode
+          - siderolabs/iscsi-tools
+          - siderolabs/qemu-guest-agent
+          - siderolabs/util-linux-tools
+
+  patches:
+    - "@./patches/misc/resolver-config.yaml"     # Internal Search Domain
+    - "@./patches/misc/time-sync-config.yaml"   # OPNsense NTP servers
+    - |-
+      cluster:
+        allowSchedulingOnControlPlanes: true
+        proxy:
+          disabled: true
+
+    - |-
+      machine:
+        files:
+          - path: /etc/cri/conf.d/20-customization.part
+            op: create
+            content: |
+              [plugins."io.containerd.cri.v1.images"]
+                discard_unpacked_layers = false
+    - |-
+      apiVersion: v1alpha1
+      kind: UserVolumeConfig
+      name: longhorn
+      provisioning:
+        diskSelector:
+          match: "'/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1' in disk.symlinks"
+        grow: false
+        minSize: 1GB
+        maxSize: 215GB
+    - |-
+      machine:
+        kubelet:
+          extraMounts:
+            - destination: /var/mnt/longhorn
+              type: bind
+              source: /var/mnt/longhorn
+              options:
+                - bind
+                - rshared
+                - rw
