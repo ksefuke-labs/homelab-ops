@@ -73,11 +73,12 @@ spec:
       enabled: true
       type: LoadBalancer
       spec:
-        loadBalancerIP: 10.52.100.78
+        annotations:
+          lbipam.cilium.io/ips: 10.52.100.78/32
 
     ingressRoute:
       dashboard:
         enabled: true
-        matchRule: Host(`traefik.staging.ksefuke-labs`)
+        matchRule: Host(`traefik.ksefuke-labs`)
         entryPoints:
           - web
