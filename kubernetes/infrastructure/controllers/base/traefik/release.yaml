@@ -73,7 +73,7 @@ spec:
       enabled: true
       type: LoadBalancer
       spec:
-        loadBalancerIP: 10.52.100.15
+        loadBalancerIP: 10.52.100.78
 
     ingressRoute:
       dashboard:

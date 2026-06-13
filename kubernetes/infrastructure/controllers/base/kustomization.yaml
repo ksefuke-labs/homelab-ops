@@ -5,7 +5,7 @@ resources:
   - ./cnpg
   - ./kube-prometheus-stack
   - ./longhorn
-  - ./metallb
+  #- ./metallb
   - ./reflector
   - ./renovate
   - ./reloader
