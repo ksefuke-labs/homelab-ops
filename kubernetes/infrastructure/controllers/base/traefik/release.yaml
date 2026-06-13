@@ -72,9 +72,8 @@ spec:
     service:
       enabled: true
       type: LoadBalancer
-      spec:
-        annotations:
-          lbipam.cilium.io/ips: 10.52.100.78/32
+      annotations:
+        lbipam.cilium.io/ips: 10.52.100.78
 
     ingressRoute:
       dashboard:
