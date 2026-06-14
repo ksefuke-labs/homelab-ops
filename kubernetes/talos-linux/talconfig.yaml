@@ -1,4 +1,4 @@
-talosVersion: v1.13.3
+talosVersion: v1.13.4
 kubernetesVersion: v1.36.1
 clusterName: folkvangr
 endpoint: https://k8s.folkvangr.internal:6443
