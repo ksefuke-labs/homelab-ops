@@ -44,7 +44,7 @@ services:
       - ./config/wazuh_cluster/wazuh_manager.conf:/wazuh-config-mount/etc/ossec.conf
 
   wazuh.indexer:
-    image: wazuh/wazuh-indexer:4.14.1
+    image: wazuh/wazuh-indexer:4.14.6
     hostname: wazuh.indexer
     restart: always
     ports:
