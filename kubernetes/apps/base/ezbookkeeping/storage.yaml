@@ -6,10 +6,10 @@ metadata:
   labels:
     app: "ezbookkeeping"
 spec:
-  #storageClassName: my-storage-class
-  selector:
-    matchLabels:
-      pv-for: "ezbookkeeping-data"
+  storageClassName: longhorn
+  #selector:
+  #  matchLabels:
+  #    pv-for: "ezbookkeeping-data"
   accessModes:
     - ReadWriteOnce
   resources:
@@ -25,10 +25,10 @@ metadata:
   labels:
     app: "ezbookkeeping"
 spec:
-  #storageClassName: my-storage-class
-  selector:
-    matchLabels:
-      pv-for: "ezbookkeeping-storage"
+  storageClassName: longhorn
+  #selector:
+  #  matchLabels:
+  #    pv-for: "ezbookkeeping-storage"
   accessModes:
     - ReadWriteOnce
   resources:
