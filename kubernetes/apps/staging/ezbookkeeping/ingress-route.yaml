@@ -10,7 +10,7 @@ spec:
   - kind: Rule
     match: Host(`ezbk.ksefuke-labs.com`)
     services:
-    - name: "ezbookkeeping"
+    - name: "ezbookkeeping-svc"
       namespace: ezbookkeeping
       port: 8080
   tls:
