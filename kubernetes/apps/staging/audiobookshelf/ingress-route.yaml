@@ -8,10 +8,10 @@ spec:
     - websecure
   routes:
   - kind: Rule
-    match: Host(`abs.staging.ksefuke-labs.com`)
+    match: Host(`abs.ksefuke-labs.com`)
     services:
     - name: audiobookshelf
       namespace: audiobookshelf
       port: 3005
   tls:
-    secretName: staging-ksefuke-labs-tls
+    secretName: prod-ksefuke-labs-tls
