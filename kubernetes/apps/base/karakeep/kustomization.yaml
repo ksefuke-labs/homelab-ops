@@ -4,8 +4,6 @@ resources:
 - deployment-chrome.yaml
 - deployment-karakeep.yaml
 - deployment-meilisearch.yaml
-#- ingress.yaml
-- ingress-route.yaml
 - namespace.yaml
 - secrets.yaml
 - services.yaml

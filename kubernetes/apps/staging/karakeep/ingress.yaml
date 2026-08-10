@@ -5,7 +5,7 @@ metadata:
   namespace: karakeep
 spec:
   rules:
-  - host: "karakeep.staging.ksefuke-labs.com"
+  - host: "karakeep.ksefuke-labs.com"
     http:
       paths:
       - path: "/"
