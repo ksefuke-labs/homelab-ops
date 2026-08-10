@@ -39,6 +39,11 @@ controlPlane:
               [plugins."io.containerd.cri.v1.images"]
                 discard_unpacked_layers = false
     - |-
+      machine:
+        features:
+          hostDNS:
+            forwardKubeDNSToHost: false
+    - |-
       apiVersion: v1alpha1
       kind: UserVolumeConfig
       name: longhorn
