@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: linkding
+  namespace: linkding
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - kind: Rule
+    match: Host(`ld.ksefuke-labs.com`)
+    services:
+    - name: linkding
+      namespace: linkding
+      port: 9090
+  tls:
+    secretName: prod-ksefuke-labs-tls
