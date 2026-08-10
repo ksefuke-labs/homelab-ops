@@ -7,7 +7,7 @@ cniConfig:
 nodes:
   - hostname: controller
     controlPlane: true
-    ipAddress: 10.52.150.75, 10.52.100.76, 10.52.100.77
+    ipAddress: 10.52.100.75, 10.52.100.76, 10.52.100.77
     ignoreHostname: true
     installDisk: /dev/sda
   
