@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: "ezbookkeeping-ingress"
+  namespace: ezbookkeeping
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - kind: Rule
+    match: Host(`ezbk.ksefuke-labs.com`)
+    services:
+    - name: "ezbookkeeping"
+      namespace: ezbookkeeping
+      port: 8080
+  tls:
+    secretName: prod-ksefuke-labs-tls

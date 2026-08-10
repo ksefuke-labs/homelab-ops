@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "ezbookkeeping"
+  labels:
+    app: "ezbookkeeping"
+spec:
+  selector:
+    matchLabels:
+      app: "ezbookkeeping"
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: "ezbookkeeping"
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+      - image: "mayswind/ezbookkeeping:latest" # you can set specific version here (e.g. 1.2.0) for manual update control
+        imagePullPolicy: Always # Required for "latest" tag to ensure fresh image pulls. Use "IfNotPresent" for specific versions
+        name: "ezbookkeeping"
+        env:
+        - name: EBK_SECURITY_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: "ezbookkeeping-secret"
+              key: EBK_SECURITY_SECRET_KEY
+        - name: EBK_SERVER_PROTOCOL
+          value: "http"  # Ingress will handle HTTPS termination
+        - name: EBK_SERVER_DOMAIN
+          value: "ezbk.ksefuke-labs.com"
+        - name: EBK_SERVER_ENABLE_GZIP
+          value: "true"
+        - name: EBK_LOG_MODE
+          value: "console" # Logs are collected from stdout/stderr in Kubernetes and can be accessed via "kubectl logs"
+        ports:
+        - containerPort: 8080
+          name: ezbookkeeping
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "1Gi"
+            cpu: "2"
+        volumeMounts:
+        - mountPath: "/ezbookkeeping/data" # SQLite database storage
+          name: "ezbookkeeping-data"
+        - mountPath: "/ezbookkeeping/storage" # User uploads storage
+          name: "ezbookkeeping-storage"
+      volumes:
+        - name: "ezbookkeeping-data"
+          persistentVolumeClaim:
+            claimName: "ezbookkeeping-data-pvc"
+        - name: "ezbookkeeping-storage"
+          persistentVolumeClaim:
+            claimName: "ezbookkeeping-storage-pvc"

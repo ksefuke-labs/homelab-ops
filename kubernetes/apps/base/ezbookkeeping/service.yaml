@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "ezbookkeeping-svc"
+  labels:
+    app: "ezbookkeeping"
+spec:
+  clusterIP: None
+  ports:
+    - port: 8080
+  selector:
+    app: "ezbookkeeping"
