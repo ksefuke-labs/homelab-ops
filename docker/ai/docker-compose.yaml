@@ -7,7 +7,7 @@ services:
       - OLLAMA_HOST=0.0.0.0          # Listen on all interfaces (default in Docker)
       - OLLAMA_NUM_PARALLEL=2        # Allow 2 concurrent requests
       - OLLAMA_MAX_LOADED_MODELS=2   # Keep 2 models in memory simultaneously
-      - OLLAMA_KEEP_ALIVE=24h        # Keep model in memory 24 hours after last use
+      - OLLAMA_KEEP_ALIVE=1h        # Keep model in memory 24 hours after last use
       - OLLAMA_CONTEXT_LENGTH=32000
       - OLLAMA_FLASH_ATTENTION=1
     devices:
