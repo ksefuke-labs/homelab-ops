@@ -2,8 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: "ezbookkeeping"
+  namespace: ezbookkeeping
   labels:
     app: "ezbookkeeping"
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   selector:
     matchLabels:

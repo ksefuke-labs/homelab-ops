@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: "ezbookkeeping-data-pvc"
+  namespace: ezbookkeeping
   labels:
     app: "ezbookkeeping"
 spec:
@@ -20,6 +21,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: "ezbookkeeping-storage-pvc"
+  namespace: ezbookkeeping
   labels:
     app: "ezbookkeeping"
 spec:
