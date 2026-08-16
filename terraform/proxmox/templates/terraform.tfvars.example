@@ -1,0 +1,8 @@
+proxmox_endpoint  = "https://pve.example.com:8006/"
+proxmox_api_token = "terraform@pve!provider=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+proxmox_insecure  = true
+
+node_name              = "pve"
+datastore_id           = "local-lvm"
+download_datastore_id  = "local"
+network_bridge         = "vmbr0"
