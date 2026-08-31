@@ -1,0 +1,28 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: commafeed-db
+  namespace: commafeed
+spec:
+  instances: 3
+  bootstrap:
+    initdb:
+      database: app
+      owner: commafeed #Set to db username
+      secret:
+        name: commafeed-secret #secret containing username/password in basic auth
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ClusterImageCatalog
+    name: postgresql-global
+    major: 15 #pin to major version required by app
+  storage:
+    storageClass: longhorn-cnpg
+    size: 1Gi
+  #plugins:
+  #  - name: barman-cloud.cloudnative-pg.io
+  #    isWALArchiver: true
+  #    parameters:
+  #      barmanObjectName:
+
+ 

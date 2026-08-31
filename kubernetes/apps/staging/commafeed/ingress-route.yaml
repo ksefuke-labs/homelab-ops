@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: commafeed
+  namespace: commafeed
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - kind: Rule
+    match: Host(`commafeed.ksefuke-labs.com`)
+    services:
+    - name: commafeed
+      namespace: commafeed
+      port: 8082
+  tls:
+    secretName: prod-ksefuke-labs-tls

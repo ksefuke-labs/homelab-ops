@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: commafeed
+  namespace: commafeed
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: commafeed
+  template:
+    metadata:
+      labels:
+        app: commafeed
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+      containers:
+      - image: athou/commafeed:latest
+        name: commafeed
+        ports: 
+          - containerPort: 8082
+        envFrom:
+          - configMapRef:
+              name: commafeed-configmap
+        env:
+          - name: CF_DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                name: commafeed-secrets
+                key: username
+          - name: CF_DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: commafeed-secrets
+                key: password
+        resources:
+            limits:
+              memory: 250Mi
+        securityContext:
+            allowPrivilegeEscalation: false
+        volumeMounts:
+          - mountPath: /commafeed/data
+            name: commafeed-data
+      volumes:
+        - name: commafeed-data
+          persistentVolumeClaim: # PVC Claim in storage.yaml
+            claimName: commafeed-data-pvc
