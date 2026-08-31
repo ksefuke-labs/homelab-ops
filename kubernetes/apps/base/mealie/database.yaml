@@ -1,0 +1,27 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: mealie-db
+spec:
+  instances: 3
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
+      secret:
+        name: mealie-secrets
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ClusterImageCatalog
+    name: postgresql-global
+    major: 17
+  storage:
+    storageClass: longhorn-cnpg
+    size: 1Gi
+  #plugins:
+  #  - name: barman-cloud.cloudnative-pg.io
+  #    isWALArchiver: true
+  #    parameters:
+  #      barmanObjectName:
+
+ 

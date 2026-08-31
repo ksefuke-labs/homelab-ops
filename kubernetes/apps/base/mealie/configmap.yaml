@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mealie-configmap
+data:
+  DB_ENGINE: "postgres"
+  POSTGRES_SERVER: "mealie-db-rw.mealie.svc.cluster.local"
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "app"
