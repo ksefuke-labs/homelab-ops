@@ -31,12 +31,12 @@ spec:
           - name: QUARKUS_DATASOURCE_USERNAME
             valueFrom:
               secretKeyRef:
-                name: commafeed-secrets
+                name: commafeed-secret
                 key: username
           - name: QUARKUS_DATASOURCE_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: commafeed-secrets
+                name: commafeed-secret
                 key: password
         resources:
             limits:
