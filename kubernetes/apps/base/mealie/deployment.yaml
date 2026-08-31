@@ -15,6 +15,10 @@ spec:
       labels:
         app: mealie
     spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
       containers:
       - image: ghcr.io/mealie-recipes/mealie:v3.8.0
         name: mealie
@@ -23,21 +27,12 @@ spec:
         envFrom:
           - configMapRef:
               name: mealie-configmap
-        env:
-          - name: POSTGRES_USER
-            valueFrom:
-              secretKeyRef:
-                name: mealie-secrets
-                key: username
-          - name: POSTGRES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mealie-secrets
-                key: password
         resources:
           requests:
             cpu: 500m
             memory: 1Gi
+        securityContext:
+            allowPrivilegeEscalation: false
         volumeMounts:
           - mountPath: /app/data
             name: mealie-data

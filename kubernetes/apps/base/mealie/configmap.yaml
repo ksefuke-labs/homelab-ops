@@ -4,7 +4,12 @@ metadata:
   name: mealie-configmap
   namespace: mealie
 data:
-  DB_ENGINE: "postgres"
-  POSTGRES_SERVER: "mealie-db-rw.mealie.svc.cluster.local"
-  POSTGRES_PORT: "5432"
-  POSTGRES_DB: "app"
+  ALLOW_SIGNUP: "true"
+  BASE_URL: https://mealie.ksefuke-labs.com
+  #DB_ENGINE: "postgres"
+  #POSTGRES_SERVER: "mealie-db-rw.mealie.svc.cluster.local"
+  #POSTGRES_PORT: "5432"
+  #POSTGRES_DB: "app"
+  PUID: 1000
+  PGID: 1000
+  TZ: Europe/London
