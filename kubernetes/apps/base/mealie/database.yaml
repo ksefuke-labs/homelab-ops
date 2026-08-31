@@ -8,7 +8,7 @@ spec:
   bootstrap:
     initdb:
       database: app
-      owner: app
+      owner: mealie
       secret:
         name: mealie-secrets
   imageCatalogRef:
