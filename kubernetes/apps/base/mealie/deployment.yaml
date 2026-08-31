@@ -23,8 +23,17 @@ spec:
         envFrom:
           - configMapRef:
               name: mealie-configmap
-          - secretRef:
-              name: mealie-secrets
+        env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: mealie-secrets
+                key: username
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mealie-secrets
+                key: password
         resources:
           requests:
             cpu: 500m
