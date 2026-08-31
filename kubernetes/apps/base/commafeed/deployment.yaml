@@ -20,7 +20,7 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
       containers:
-      - image: athou/commafeed:latest
+      - image: athou/commafeed:latest-postgresql
         name: commafeed
         ports: 
           - containerPort: 8082
@@ -28,12 +28,12 @@ spec:
           - configMapRef:
               name: commafeed-configmap
         env:
-          - name: CF_DATABASE_USER
+          - name: QUARKUS_DATASOURCE_USERNAME
             valueFrom:
               secretKeyRef:
                 name: commafeed-secrets
                 key: username
-          - name: CF_DATABASE_PASSWORD
+          - name: QUARKUS_DATASOURCE_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: commafeed-secrets
