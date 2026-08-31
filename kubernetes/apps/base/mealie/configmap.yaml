@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mealie-configmap
+  namespace: mealie
 data:
   DB_ENGINE: "postgres"
   POSTGRES_SERVER: "mealie-db-rw.mealie.svc.cluster.local"
