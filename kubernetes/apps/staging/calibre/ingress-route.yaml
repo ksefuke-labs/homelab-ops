@@ -1,17 +1,17 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: calibre-web
-  namespace: calibre-web
+  name: calibre
+  namespace: calibre
 spec:
   entryPoints:
     - websecure
   routes:
   - kind: Rule
-    match: Host(`calibre.ksefuke-labs.com`)
+    match: Host(`cali.ksefuke-labs.com`)
     services:
-    - name: calibre-web
-      namespace: calibre-web
+    - name: calibre
+      namespace: calibre
       port: 8083
   tls:
     secretName: prod-ksefuke-labs-tls
