@@ -35,7 +35,7 @@ write_files:
 runcmd:
   - printf "[sshd]\nenabled = true\nport = ssh, $non-standard port\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
   - systemctl enable fail2ban
-  - timedatectk set-timezone Europe/London
+  - timedatectl set-timezone Europe/London
   - systemctl enable --now systemd-timesyncd
   - ufw allow $non-standard port
   - ufw enable

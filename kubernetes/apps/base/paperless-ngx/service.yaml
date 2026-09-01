@@ -2,14 +2,14 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: calibre
-  name: calibre
-  namespace: calibre
+    app: 
+  name: 
+  namespace: 
 spec:
   ports:
-  - port: 8083
+  - port: 
     protocol: TCP
-    targetPort: 8083
+    targetPort: 
   selector:
-    app: calibre
+    app: 
   type: ClusterIP

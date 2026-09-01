@@ -1,54 +1,45 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: calibre-web
-  namespace: calibre-web
+  name: calibre
+  namespace: calibre
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: calibre-web
+      app: calibre
   template:
     metadata:
       labels:
-        app: calibre-web
+        app: calibre
     spec:
       securityContext:
         fsGroup: 1000
       containers:
-      - image: lscr.io/linuxserver/calibre-web:latest
-        name: calibre-web
+      - image: crocodilestick/calibre-web-automated:latest
+        name: calibre
         ports: 
           - containerPort: 8083
         envFrom:
           - configMapRef:
-              name: calibre-web-configmap
-        resources:
-            limits:
-              memory: 1Gi
+              name: calibre-configmap
         volumeMounts:
-          - mountPath: /books
-            name: calibre-web-books-data
           - mountPath: /config
-            name: calibre-web-config-data
-      initContainers:
-        - name: fix-perms
-          image: busybox
-          command: ["sh", "-c", "chown -R 1000:1000 /books /config"]
-          securityContext:
-            runAsUser: 0
-          volumeMounts:
-            - mountPath: /books
-              name: calibre-web-books-data
-            - mountPath: /config
-              name: calibre-web-config-data
+            name: calibre-config
+          - mountPath: /cwa-book-ingest
+            name: calibre-ingest
+          - mountPath: /calibre-library
+            name: calibre-library
 
       volumes:
-        - name: calibre-web-books-data
+        - name: calibre-config
           persistentVolumeClaim: # PVC Claim in storage.yaml
-            claimName: calibre-web-book-pvc
-        - name: calibre-web-config-data
+            claimName: calibre-config-pvc
+        - name: calibre-ingest
           persistentVolumeClaim: # PVC Claim in storage.yaml
-            claimName: calibre-web-config-pvc
+            claimName: calibre-ingest-pvc
+        - name: calibre-library
+          persistentVolumeClaim: # PVC Claim in storage.yaml
+            claimName: calibre-library-pvc

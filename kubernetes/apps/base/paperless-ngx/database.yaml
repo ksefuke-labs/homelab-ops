@@ -1,0 +1,28 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: db
+  namespace:
+spec:
+  instances: 3
+  bootstrap:
+    initdb:
+      database: app
+      owner: $myuser #Set to db username
+      secret:
+        name: secret-name #secret containing username/password in basic auth
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ClusterImageCatalog
+    name: postgresql-global
+    major: 17 #pin to major version required by app
+  storage:
+    storageClass: longhorn-cnpg
+    size: 1Gi
+  #plugins:
+  #  - name: barman-cloud.cloudnative-pg.io
+  #    isWALArchiver: true
+  #    parameters:
+  #      barmanObjectName:
+
+ 

@@ -1,11 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: calibre-web-configmap
-  namespace: calibre-web
+  name: calibre-configmap
+  namespace: calibre
 data:
   PUID: "1000"
   PGID: "1000"
   TZ: "Europe/London"
-  DOCKER_MODS: "linuxserver/mods:universal-calibre"
-  OAUTHLIB_RELAX_TOKEN_SCOPE: "1"
+  CWA_PORT_OVERRIDE: "8083"

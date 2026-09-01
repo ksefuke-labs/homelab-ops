@@ -23,7 +23,7 @@ resource "proxmox_virtual_environment_vm" "template" {
   started  = false
 
   machine = "q35"
-  bios    = "ovmf"
+  bios    = "seabios"
 
   cpu {
     cores = var.cpu_cores
@@ -34,21 +34,13 @@ resource "proxmox_virtual_environment_vm" "template" {
     dedicated = var.memory
   }
 
-  efi_disk {
-    datastore_id      = var.datastore_id
-    file_format       = "raw"
-    type              = "4m"
-    pre_enrolled_keys = false
-  }
-
   disk {
     datastore_id = var.datastore_id
     import_from  = proxmox_download_file.cloud_image.id
     interface    = "scsi0"
-    iothread     = true
     ssd          = true
     discard      = "on"
-    file_format  = "raw"
+    file_format  = "qcow2"
     size         = var.disk_size
   }
 
@@ -63,15 +55,12 @@ resource "proxmox_virtual_environment_vm" "template" {
     trim    = true
   }
 
-  # Serial console is commonly needed for cloud images to boot/log correctly
-  serial_device {}
+  #serial_device {}
 
-  vga {
-    type = "serial0"
-  }
+  #vga {
+  #  type = "default"
+  #}
 
-  # Intentionally left unconfigured (no user_account / ip_config) — this is
-  # a template. Set those per-clone when you create actual VMs from it.
   initialization {
     datastore_id = var.datastore_id
     interface    = "ide2"
