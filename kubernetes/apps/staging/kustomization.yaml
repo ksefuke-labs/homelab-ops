@@ -3,7 +3,11 @@ kind: Kustomization
 resources:
   - ./audiobookshelf
 <<<<<<< HEAD
+<<<<<<< HEAD
   #- ./calibre-web
+=======
+  - #./calibre-web
+>>>>>>> 376271ca2d005bf625316bdc85b147bcad1ff010
 =======
   - #./calibre-web
 >>>>>>> 376271ca2d005bf625316bdc85b147bcad1ff010

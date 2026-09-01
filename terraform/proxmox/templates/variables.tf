@@ -1,6 +1,3 @@
-# ---------------------------------------------------------------------------
-# Secrets — populate these in terraform.tfvars (gitignored)
-# ---------------------------------------------------------------------------
 variable "proxmox_endpoint" {
   description = "Proxmox VE URL"
   type        = string

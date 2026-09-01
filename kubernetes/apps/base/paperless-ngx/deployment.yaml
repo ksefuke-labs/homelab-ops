@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 
+  namespace:
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: 
+  template:
+    metadata:
+      labels:
+        app: 
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+      containers:
+      - image: 
+        name:
+        ports: 
+          - containerPort: 
+        envFrom:
+          - configMapRef:
+              name: configmap
+        resources:
+            requests:
+              cpu: 500m
+              memory: 256Mi
+            limits:
+              cpu: 200m
+              memory: 1Gi
+        securityContext:
+            allowPrivilegeEscalation: false
+        volumeMounts:
+          - mountPath: 
+            name: 
+      volumes:
+        - name: 
+          persistentVolumeClaim: # PVC Claim in storage.yaml
+            claimName: 

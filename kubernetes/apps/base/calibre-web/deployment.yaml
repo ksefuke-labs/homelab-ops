@@ -1,38 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: calibre-web
-  namespace: calibre-web
+  name: calibre
+  namespace: calibre
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: calibre-web
+      app: calibre
   template:
     metadata:
       labels:
-        app: calibre-web
+        app: calibre
     spec:
       securityContext:
         fsGroup: 1000
       containers:
       - image: lscr.io/linuxserver/calibre-web:latest
-        name: calibre-web
+        name: calibre
         ports: 
           - containerPort: 8083
         envFrom:
           - configMapRef:
-              name: calibre-web-configmap
+              name: calibre-configmap
         resources:
             limits:
               memory: 1Gi
         volumeMounts:
           - mountPath: /books
-            name: calibre-web-books-data
+            name: calibre-books
           - mountPath: /config
-            name: calibre-web-config-data
+            name: calibre-config
       initContainers:
         - name: fix-perms
           image: busybox
@@ -41,14 +41,14 @@ spec:
             runAsUser: 0
           volumeMounts:
             - mountPath: /books
-              name: calibre-web-books-data
+              name: calibre-books
             - mountPath: /config
-              name: calibre-web-config-data
+              name: calibre-config
 
       volumes:
-        - name: calibre-web-books-data
+        - name: calibre-web-books
           persistentVolumeClaim: # PVC Claim in storage.yaml
-            claimName: calibre-web-book-pvc
-        - name: calibre-web-config-data
+            claimName: calibre-book-pvc
+        - name: calibre-web-config
           persistentVolumeClaim: # PVC Claim in storage.yaml
-            claimName: calibre-web-config-pvc
+            claimName: calibre-config-pvc

@@ -40,8 +40,6 @@ module "fedora_template" {
   download_datastore_id = var.download_datastore_id
   network_bridge        = var.network_bridge
 
-  # Fedora release numbers change often — check
-  # https://fedoraproject.org/cloud/download for the current release URL.
   image_url       = "https://download.fedoraproject.org/pub/fedora/linux/releases/44/Cloud/x86_64/images/Fedora-Cloud-Base-Generic-44-1.7.x86_64.qcow2"
   image_file_name = "fedora-44-generic-amd64.qcow2"
 }
