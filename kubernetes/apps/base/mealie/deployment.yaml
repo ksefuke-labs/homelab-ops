@@ -39,11 +39,7 @@ spec:
                 name: mealie-secrets
                 key: password
         resources:
-            requests:
-              cpu: 500m
-              memory: 256Mi
             limits:
-              cpu: 200m
               memory: 1Gi
         securityContext:
             allowPrivilegeEscalation: false
