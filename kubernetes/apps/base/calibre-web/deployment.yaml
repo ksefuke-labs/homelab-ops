@@ -17,8 +17,6 @@ spec:
     spec:
       securityContext:
         fsGroup: 1000
-        runAsUser: 1000
-        runAsGroup: 1000
       containers:
       - image: lscr.io/linuxserver/calibre-web:latest
         name: calibre-web
@@ -31,8 +29,6 @@ spec:
             limits:
               cpu: 500m
               memory: 1Gi
-        securityContext:
-            allowPrivilegeEscalation: false
         volumeMounts:
           - mountPath: /books
             name: calibre-web-books-data
