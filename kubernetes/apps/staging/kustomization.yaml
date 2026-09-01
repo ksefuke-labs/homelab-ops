@@ -2,7 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./audiobookshelf
+<<<<<<< HEAD
   #- ./calibre-web
+=======
+  - #./calibre-web
+>>>>>>> 376271ca2d005bf625316bdc85b147bcad1ff010
   - ./commafeed
   - ./ezbookkeeping
   - ./excalidraw
