@@ -27,13 +27,24 @@ spec:
               name: calibre-web-configmap
         resources:
             limits:
-              cpu: 500m
               memory: 1Gi
         volumeMounts:
           - mountPath: /books
             name: calibre-web-books-data
           - mountPath: /config
             name: calibre-web-config-data
+      initContainers:
+        - name: fix-perms
+          image: busybox
+          command: ["sh", "-c", "chown -R 1000:1000 /books /config"]
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+            - mountPath: /books
+              name: calibre-web-books-data
+            - mountPath: /config
+              name: calibre-web-config-data
+
       volumes:
         - name: calibre-web-books-data
           persistentVolumeClaim: # PVC Claim in storage.yaml
