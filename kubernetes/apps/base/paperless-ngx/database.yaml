@@ -1,28 +1,26 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: db
-  namespace:
+  name: paperless-ngx-db
+  namespace: paperless-ngx
 spec:
   instances: 3
   bootstrap:
     initdb:
       database: app
-      owner: $myuser #Set to db username
+      owner: paperless-ngx #Set to db username
       secret:
-        name: secret-name #secret containing username/password in basic auth
+        name: paperless-ngx-db-creds #secret containing username/password in basic auth fornat
   imageCatalogRef:
     apiGroup: postgresql.cnpg.io
     kind: ClusterImageCatalog
     name: postgresql-global
-    major: 17 #pin to major version required by app
+    major: 18 #pin to major version required by app
   storage:
     storageClass: longhorn-cnpg
-    size: 1Gi
+    size: 2Gi
   #plugins:
   #  - name: barman-cloud.cloudnative-pg.io
   #    isWALArchiver: true
   #    parameters:
   #      barmanObjectName:
-
- 

@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: paperless-ngx
+  namespace: paperless-ngx
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - kind: Rule
+    match: Host(`pxng.ksefuke-labs.com`)
+    services:
+    - name: paperless-ngx
+      namespace: paperless-ngx
+      port: 8000
+  tls:
+    secretName: prod-ksefuke-labs-tls

@@ -2,14 +2,27 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: 
-  name: 
-  namespace: 
+    app: paperless-ngx
+  name: paperless-ngx
+  namespace: paperless-ngx
 spec:
   ports:
-  - port: 
+  - port: 8000
     protocol: TCP
-    targetPort: 
+    targetPort: 8000
   selector:
-    app: 
+    app: paperless-ngx
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: paperless-ngx
+spec:
+  selector:
+    app: redis
+  ports:
+    - port: 6379
+      targetPort: 6379
   type: ClusterIP

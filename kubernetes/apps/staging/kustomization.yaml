@@ -9,4 +9,5 @@ resources:
   - ./karakeep
   - ./mealie
   - ./linkding
+  - ./paperless-ngx
 #  - ./n8n

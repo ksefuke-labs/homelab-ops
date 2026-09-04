@@ -1,45 +1,76 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: 
-  namespace:
+  name: paperless-ngx
+  namespace: paperless-ngx
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: 
+      app: paperless-ngx
   template:
     metadata:
       labels:
-        app: 
+        app: paperless-ngx
     spec:
       securityContext:
         fsGroup: 1000
         runAsUser: 1000
         runAsGroup: 1000
       containers:
-      - image: 
-        name:
+      - image: ghcr.io/paperless-ngx/paperless-ngx:latest
+        name: paperless-ngx
         ports: 
-          - containerPort: 
+          - containerPort: 8000
         envFrom:
           - configMapRef:
-              name: configmap
-        resources:
-            requests:
-              cpu: 500m
-              memory: 256Mi
-            limits:
-              cpu: 200m
-              memory: 1Gi
+              name: paperless-ngx-configmap
+        env:
+          - name: PAPERLESS_DBUSER
+            valueFrom:
+              secretKeyRef:
+                name: paperless-ngx-db-creds
+                key: username
+          - name: PAPERLESS_DBPASS
+            valueFrom:
+              secretKeyRef:
+                name: paperless-ngx-db-creds
+                key: password
+          - name: PAPERLESS_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: paperless-ngx-secret
+                key: PAPERLESS_SECRET_KEY
         securityContext:
             allowPrivilegeEscalation: false
         volumeMounts:
-          - mountPath: 
-            name: 
+          - mountPath: /usr/src/paperless/consume
+            name: consume
+          - mountPath: /usr/src/paperless/data
+            name: data
+          - mountPath: /usr/src/paperless/export
+            name: export
+          - mountPath: /usr/src/paperless/media
+            name: media
+        #resources:
+        #  requests:
+        #    memory: "128Mi"
+        #    cpu: "100m"
+        #  limits:
+        #    memory: "1Gi"
+        #   cpu: "200"
       volumes:
-        - name: 
-          persistentVolumeClaim: # PVC Claim in storage.yaml
-            claimName: 
+        - name: consume
+          persistentVolumeClaim:
+            claimName: paperless-ngx-consume
+        - name: data
+          persistentVolumeClaim:
+            claimName: paperless-ngx-data
+        - name: export
+          persistentVolumeClaim:
+            claimName: paperless-ngx-export
+        - name: media
+          persistentVolumeClaim:
+            claimName: paperless-ngx-media

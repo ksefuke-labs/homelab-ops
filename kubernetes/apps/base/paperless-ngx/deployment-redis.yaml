@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: paperless-ngx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - image: docker.io/valkey/valkey:9-alpine
+        name: redis
+        ports:
+          - containerPort: 6379
+        volumeMounts:
+          - mountPath: /data
+            name: redisdata
+        securityContext:
+          allowPrivilegeEscalation: false
+      volumes:
+        - name: redisdata
+          persistentVolumeClaim:
+            claimName: paperless-ngx-redis
