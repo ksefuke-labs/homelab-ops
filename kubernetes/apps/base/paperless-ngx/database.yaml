@@ -4,7 +4,7 @@ metadata:
   name: paperless-ngx-db
   namespace: paperless-ngx
 spec:
-  instances: 3
+  instances: 2
   bootstrap:
     initdb:
       database: app

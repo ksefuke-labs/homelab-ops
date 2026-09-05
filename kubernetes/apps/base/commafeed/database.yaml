@@ -4,7 +4,7 @@ metadata:
   name: commafeed-db
   namespace: commafeed
 spec:
-  instances: 3
+  instances: 2
   bootstrap:
     initdb:
       database: app
