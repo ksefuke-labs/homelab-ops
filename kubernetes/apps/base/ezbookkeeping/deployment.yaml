@@ -46,10 +46,10 @@ spec:
         resources:
           requests:
             memory: "128Mi"
-            cpu: "100m"
+            cpu: "50m"
           limits:
-            memory: "1Gi"
-            cpu: "2"
+            memory: "256Mi"
+            #cpu: "500m"
         volumeMounts:
         - mountPath: "/ezbookkeeping/data" # SQLite database storage
           name: "ezbookkeeping-data"

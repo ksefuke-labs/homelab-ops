@@ -54,13 +54,12 @@ spec:
             name: export
           - mountPath: /usr/src/paperless/media
             name: media
-        #resources:
-        #  requests:
-        #    memory: "128Mi"
-        #    cpu: "100m"
-        #  limits:
-        #    memory: "1Gi"
-        #   cpu: "200"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
       volumes:
         - name: consume
           persistentVolumeClaim:

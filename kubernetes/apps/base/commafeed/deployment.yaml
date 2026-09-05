@@ -39,8 +39,12 @@ spec:
                 name: commafeed-secret
                 key: password
         resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
             limits:
-              memory: 250Mi
+            #  cpu: 500m
+              memory: 384Mi
         securityContext:
             allowPrivilegeEscalation: false
         #volumeMounts:

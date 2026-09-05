@@ -39,8 +39,12 @@ spec:
                 name: mealie-secrets
                 key: password
         resources:
-            limits:
-              memory: 1Gi
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            #cpu: "500m"
         securityContext:
             allowPrivilegeEscalation: false
         volumeMounts:
