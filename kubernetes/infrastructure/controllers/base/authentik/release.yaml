@@ -1,0 +1,148 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: authentik
+spec:
+  targetNamespace: authentik
+  interval: 30m
+  chart:
+    spec:
+      chart: authentik
+      version: "2026.8.1"
+      sourceRef:
+        kind: HelmRepository
+        name: authentik
+        namespace: authentik
+  values:
+    ## Globally shared configuration for authentik components.
+    global:
+      # -- Environment variables to pass to all deployed Deployments. Does not apply to GeoIP
+      # See configuration options at https://goauthentik.io/docs/installation/configuration/
+      # @default -- `[]` (See [values.yaml])
+      env:
+        - name: AUTHENTIK_POSTGRESQL__HOST
+          value: "authentik-db-rw.authentik.svc.cluster.local"
+        - name: AUTHENTIK_POSTGRESQL__SSLMODE
+          value: "disable"
+
+        - name: AUTHENTIK_POSTGRESQL__NAME
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secrets
+              key: AUTHENTIK_POSTGRESQL_NAME
+        - name: AUTHENTIK_POSTGRESQL__PORT
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secrets
+              key: AUTHENTIK_POSTGRESQL_PORT
+        - name: AUTHENTIK_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: authentik-secrets
+              key: AUTHENTIK_SECRET_KEY
+
+        - name: AUTHENTIK_POSTGRESQL__USER
+          valueFrom:
+            secretKeyRef:
+              name: authentik-db-creds
+              key: username
+        - name: AUTHENTIK_POSTGRESQL__PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: authentik-db-creds
+              key: password
+      envFrom: []
+        # - configMapRef:
+        #     name: config-map-name
+        # - secretRef:
+        #     name: secret-name
+    # @default -- See [values.yaml]
+    authentik:
+      secret_key: ${AUTHENTIK_SECRET_KEY}
+    ## authentik server
+    server:
+      #replicas: 1
+      # authentik server container ports
+      containerPorts:
+        # -- http container port
+        http: 9000
+        # -- https container port
+        https: 9443
+        # -- metrics container port
+        metrics: 9300
+
+      # -- authentik server pod-level security context
+      # @default -- `{}` (See [values.yaml])
+      securityContext: {}
+        # runAsUser: 1000
+        # runAsGroup: 1000
+        # fsGroup: 1000
+
+      # -- authentik server container-level security context
+      # @default -- See [values.yaml]
+      containerSecurityContext: {}
+        # Not all of the following has been tested. Use at your own risk.
+        # runAsNonRoot: true
+        # readOnlyRootFilesystem: true
+        # allowPrivilegeEscalation: false
+        # seccompProfile:
+        #   type: RuntimeDefault
+        # capabilities:
+        #   drop:
+        #     - ALL
+
+      ingress:
+        # -- enable an ingress resource for the authentik server
+        enabled: true
+        # -- additional ingress annotations
+        annotations: {}
+        # -- additional ingress labels
+        labels: {}
+        ingressClassName: "traefik"
+        hosts:
+           - auth.ksefuke-labs.com
+        tls:
+           - secretName: prod-ksefuke-labs-tls
+             hosts:
+               - auth.ksefuke-labs.com
+
+    ## authentik worker
+    worker:
+      # -- whether to enable worker resources
+      enabled: true
+      # -- Environment variables to pass to the authentik worker. Does not apply to GeoIP
+      # See configuration options at https://goauthentik.io/docs/installation/configuration/
+      # @default -- `[]` (See [values.yaml])
+
+      # authentik worker container ports
+      containerPorts:
+        # -- http container port
+        http: 9000
+        # -- metrics container port
+        metrics: 9300
+
+      # -- authentik worker pod-level security context
+      # @default -- `{}` (See [values.yaml])
+      securityContext: {}
+        # runAsUser: 1000
+        # runAsGroup: 1000
+        # fsGroup: 1000
+
+      # -- authentik worker container-level security context
+      # @default -- See [values.yaml]
+      containerSecurityContext: {}
+        # Not all of the following has been tested. Use at your own risk.
+        # runAsNonRoot: true
+        # readOnlyRootFilesystem: true
+        # allowPrivilegeEscalation: false
+        # seccompProfile:
+        #   type: RuntimeDefault
+        # capabilities:
+        #   drop:
+        #     - ALL
+
+
+    
+
+
