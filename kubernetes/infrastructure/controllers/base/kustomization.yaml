@@ -14,5 +14,5 @@ resources:
   - ./reloader
   - ./spegel
   - ./traefik
-  - ./trivy
+  #- ./trivy
   
