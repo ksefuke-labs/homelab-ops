@@ -6,7 +6,9 @@ resources:
   - ./cilium
   - ./cnpg
   #- ./crowdsec
+  - ./goldilocks
   - ./kube-prometheus-stack
+  #- ./kubelet-serving-cert-approver
   - ./longhorn
   #- ./metallb
   - ./metrics-server
