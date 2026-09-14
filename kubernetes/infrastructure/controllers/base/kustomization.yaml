@@ -9,6 +9,7 @@ resources:
   - ./kube-prometheus-stack
   - ./longhorn
   #- ./metallb
+  - ./metrics-server
   - ./reflector
   - ./renovate
   - ./reloader
