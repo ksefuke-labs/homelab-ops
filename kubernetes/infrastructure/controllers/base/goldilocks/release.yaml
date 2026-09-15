@@ -60,6 +60,8 @@ spec:
       service:
         type: ClusterIP
         port: 80
+      flags:
+        on-by-default: true
 
       ingress:
         enabled: true
