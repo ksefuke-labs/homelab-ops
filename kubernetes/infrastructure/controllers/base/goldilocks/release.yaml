@@ -62,6 +62,7 @@ spec:
         port: 80
       flags:
         on-by-default: true
+        enable-cost: false
 
       ingress:
         enabled: true
