@@ -13,12 +13,19 @@ spec:
         kind: HelmRepository
         name: goldilocks
         namespace: goldilocks
+  install:
+    createNamespace: false
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
   values:
     vpa:
       # vpa.enabled -- If true, the vpa will be installed as a sub-chart
       enabled: true
       updater:
-        enabled: true
+        enabled: false
     image:
       repository: us-docker.pkg.dev/fairwinds-ops/oss/goldilocks
       tag: v4.16.1
@@ -26,6 +33,8 @@ spec:
 
     controller:
       enabled: true
+      flags:
+        on-by-default: true
       resources:
         limits: {}
         requests:
