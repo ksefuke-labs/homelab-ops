@@ -14,6 +14,15 @@ spec:
         kind: HelmRepository
         name: authentik
         namespace: authentik
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    force: true
+    remediation:
+      retries: 3
   values:
     ## Globally shared configuration for authentik components.
     global:

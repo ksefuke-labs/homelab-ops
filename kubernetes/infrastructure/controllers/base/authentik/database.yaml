@@ -4,7 +4,7 @@ metadata:
   name: authentik-db
   namespace: authentik
 spec:
-  instances: 3
+  instances: 2
   bootstrap:
     initdb:
       database: app
@@ -18,7 +18,7 @@ spec:
     major: 18 #pin to major version required by app
   storage:
     storageClass: longhorn-cnpg
-    size: 5Gi
+    size: 10Gi
   #plugins:
   #  - name: barman-cloud.cloudnative-pg.io
   #    isWALArchiver: true
