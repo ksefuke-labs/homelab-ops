@@ -7,7 +7,6 @@ resources:
   - ./cnpg
   #- ./crowdsec
   - ./goldilocks
-  - ./kube-state-metrics
   - ./kube-prometheus-stack
   #- ./kubelet-serving-cert-approver
   - ./longhorn
