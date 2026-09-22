@@ -3,11 +3,10 @@ kind: Kustomization
 resources:
   - ./audiobookshelf
   - ./calibre
-  - ./commafeed
   - ./ezbookkeeping
   - ./excalidraw
   - ./karakeep
   - ./mealie
   - ./linkding
   - ./paperless-ngx
-#  - ./n8n
+  - ./miniflux

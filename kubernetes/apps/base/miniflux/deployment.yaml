@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: miniflux
+  namespace: miniflux
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: miniflux
+  template:
+    metadata:
+      labels:
+        app: miniflux
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+      containers:
+      - image: miniflux/miniflux:latest
+        name: miniflux
+        ports: 
+          - containerPort: 8080
+        env:
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: miniflux-db-creds
+                key: username
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: miniflux-db-creds
+                key: password
+          - name: DATABASE_URL
+            value: "postgres://$(DB_USER):$(DB_PASSWORD)@miniflux-db-rw.miniflux.svc:5432/app?sslmode=disable"
+        envFrom:
+          - configMapRef:
+              name: miniflux-configmap
+          - secretRef:
+              name: miniflux-admin-creds
+        resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            #limits:
+            #  cpu: 500m
+            #  memory: 384Mi
+        securityContext:
+            allowPrivilegeEscalation: false
