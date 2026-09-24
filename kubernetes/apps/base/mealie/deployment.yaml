@@ -20,7 +20,7 @@ spec:
         runAsUser: 1000
         runAsGroup: 1000
       containers:
-      - image: ghcr.io/mealie-recipes/mealie:v3.8.0
+      - image: ghcr.io/mealie-recipes/mealie:v3.28.0
         name: mealie
         ports: 
           - containerPort: 9000
