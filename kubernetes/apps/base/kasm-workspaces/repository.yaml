@@ -2,6 +2,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: kasm-web
+  namespace: kasm-workspaces
 spec:
   interval: 1h
   ref:
