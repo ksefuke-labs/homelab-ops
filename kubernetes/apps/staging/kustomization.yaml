@@ -5,6 +5,7 @@ resources:
   - ./calibre
   - ./ezbookkeeping
   - ./excalidraw
+  - ./kasm-workspaces
   - ./karakeep
   - ./mealie
   - ./linkding
