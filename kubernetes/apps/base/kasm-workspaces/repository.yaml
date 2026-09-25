@@ -1,8 +1,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
+kind: OCIRepository
 metadata:
-  name: kasmweb
-  namespace: kasm-workspaces
+  name: kasm-web
 spec:
   interval: 1h
-  url: https://helm.kasm.com
+  ref:
+    tag: 1.1190.0
+  url: oci://registry-1.docker.io/kasmweb/kasm-helm

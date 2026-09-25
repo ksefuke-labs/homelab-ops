@@ -5,14 +5,9 @@ metadata:
   namespace: kasm-workspaces
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: kasm
-      version: '1.1190.6'
-      sourceRef:
-        kind: HelmRepository
-        name: kasmweb
-        namespace: kasm-workspaces
+  chartRef:
+    name: kasm-web
+    kind: OCIRepository
   values:
     deploymentSize: "small"
 
