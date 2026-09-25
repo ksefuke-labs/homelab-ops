@@ -17,6 +17,10 @@ spec:
     # associated with the certificate. If `certificate.certManager.enabled` is set to true, this is the
     # name used to generate the certificate.
     publicAddr: "kasm.ksefuke-labs.com"
+    proxyService:
+      type: ClusterIP
+      annotations: {}
+      labels: {}
     directRdpService:
       # directRdpService.enabled -- Enable the exposure of the RDP Gateway service via a separate Service of the type defined in
       # `directRdpService.type`. This is only applicable if you have enabled the Kasm RDP Gateway component in `components.rdpGateway.enabled`.
