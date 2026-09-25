@@ -10,45 +10,15 @@ spec:
     kind: OCIRepository
   values:
     deploymentSize: "small"
-    # publicAddr -- Set the access URL to be used for the Kasm deployment. This is the URL you will use to access
-    # your Kasm deployment. This URL can be a private address, it just needs to be resolvable by systems you use
-    # to interface with Kasm.
-    # If you create a self-signed or custom certificate, this is the value you should assign as the Common Name
-    # associated with the certificate. If `certificate.certManager.enabled` is set to true, this is the
-    # name used to generate the certificate.
     publicAddr: "kasm.ksefuke-labs.com"
     proxyService:
       type: ClusterIP
-      annotations: {}
-      labels: {}
-    directRdpService:
-      # directRdpService.enabled -- Enable the exposure of the RDP Gateway service via a separate Service of the type defined in
-      # `directRdpService.type`. This is only applicable if you have enabled the Kasm RDP Gateway component in `components.rdpGateway.enabled`.
-      enabled: false
-      # directRdpService.rdpAccessURL -- If you are exposing the RDP Gateway service via a separate Service, set the access URL
-      # to be used for the RDP Gateway. This is the URL you will use to access the RDP Gateway service and must be resolvable by
-      # your users' systems.
-      rdpAccessURL: ""
-      # directRdpService.type -- The service type to use for the RDP Gateway service if `directRdpService.enabled` is set to true.
-      # Allowed values are LoadBalancer or NodePort. The RDP Gateway speaks raw TCP, so any cloud load balancer backing this
-      type: LoadBalancer
-      # directRdpService.loadBalancerPort -- The external port exposed by the directRdpService Service when
-      # `directRdpService.type` is LoadBalancer. Defaults to 3389. Has no effect when `directRdpService.type` is NodePort.
-      loadBalancerPort: 3389
-      # directRdpService.annotations -- Custom annotations to add to the RDP Gateway Service. This only applies if `directRdpService.enabled`
-      # is set to true. If you use the annotations below to deploy a load balancer in your cloud provider, you must ensure the load balancer
-      # type supports RDP. This typically requires using a Network Load Balancer type that supports TCP load balancing, and not a HTTP/HTTPS
-      # load balancer type.
-      annotations: {}
-      labels: {}
 
     ingress:
       enabled: true
       tls: true
       backendProtocol: http
       ingressClassName: "traefik"
-      annotations: {}
-      labels: {}
 
     certificate:
       secretName: "prod-ksefuke-labs-tls"
@@ -57,45 +27,14 @@ spec:
         addWildCard: true
         issuerName: "letsencrypt-production"
         issuerKind: "ClusterIssuer"
-        issuerGroup: ""
-        annotations: {}
-        labels: {}
 
     kasmSecrets:
-      # kasmSecrets.create -- Set to false to use an existing Kasm Password secret. Default = `true`.
-      create: true
+      create: false
       # kasmSecrets.name -- The name of the Kasm Password secret to create. If a value is provided here and `create=true`,
       # Helm will use that as the secret name. If `create=false` then you MUST provide the name of an existing Kasm Password
       # secret in your deployment namespace.
-      name: ""
-      # kasmSecrets.passwords -- Set any of the five well-known keys below to a non-empty value to pin that credential to
-      # a specific value instead of letting the chart generate (or preserve, on upgrade) a random one. An explicitly set
-      # value here always wins, even if a Secret with that key already exists in the namespace.
-      # This object also accepts additional, arbitrary keys beyond the five below. Any extra key you add is written into
-      # the generated Secret's `data` as a literal base64-encoded value (no random generation, since the chart has no
-      # other source of truth for a custom key) - useful for seeding extra application secrets alongside the standard
-      # Kasm credentials.
-      # NOTE: Only used when `kasmSecrets.create` is `true`. Has no effect when referencing an existing secret.
-      passwords:
-        manager-token: ""
-        service-token: ""
-        db-password: ""
-        admin-password: ""
-        user-password: ""
-      # Example additional custom secret value:
-      #   my-custom-secret: "some-value"
-      # kasmSecrets.annotations -- Custom annotations to add to the Kasm Password secret
-      annotations: {}
-      # kasmSecrets.labels -- Custom labels to add to the Kasm Kasm Password secret
-      labels: {}
+      name: "kasm-secrets"
 
-    # useImageTags -- Chart-wide image tag used when a component's `image.tag` is empty. Per-component tag wins if set.
-    # To override the tag for a single component, see `components.<x>.image.tag` (or `database.image.tag`).
-    # Examples:
-    #   "1.19.0-rolling"             rolling tag, receives ongoing bug-fix updates within 1.19.x
-    #   "1.19.0"                     frozen point-in-time tag
-    #   "1.19.0-rolling-2026-06-02"  date-locked rolling tag, pins a specific rolling build
-    useImageTags: "1.19.0-rolling"
     database:
       # database.standalone -- Setting standalone to true will prevent the deployment of the Kasm DB StatefulSet and requires
       # the user to have a self-hosted PostgreSQL Database v16 server already setup and awaiting connections. Use the below
@@ -135,78 +74,3 @@ spec:
       initialize: true
       upgrade:
         enable: false
-  
-    api:
-      image:
-        registry: docker.io
-        repository: kasmweb/api
-        tag: ""
-      replicas: 0
-
-    manager:
-      image:
-        registry: docker.io
-        repository: kasmweb/manager
-        tag: ""
-      replicas: 0
-
-    guac:
-      image:
-        registry: docker.io
-        repository: kasmweb/kasm-guac
-        tag: ""
-      enabled: true
-      replicas: 0
-
-    rdpGateway:
-      image:
-        registry: docker.io
-        repository: kasmweb/rdp-gateway
-        tag: ""
-      enabled: true
-      replicas: 0
-
-    rdpHttpsGateway:
-      image:
-        registry: docker.io
-        repository: kasmweb/rdp-https-gateway
-        tag: ""
-      enabled: true
-      replicas: 0
-
-    clusterDomain: "cluster.local"
-    # nodeSelector -- Configure node selector settings for your Kasm pods -
-    # [Kubernetes Node Selector](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector).
-    nodeSelector: {}
-    # affinity -- Configure node affinity settings for Kasm pods - 
-    # [Kubernetes Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
-    # Kasm is not guaranteed to work with Affinity settings - use caution if you must configuring these settings.
-    # The below, optional object passes in raw Affinity rules for Pods, Nodes, etc. for your environment. Make sure you
-    # use the correct values below as this Helm chart will not do any error checking for you.
-    affinity: {}
-    # applySecurity -- Apply Pod/Container security settings for Kasm resources
-    applySecurity: true
-    # applyHealthChecks -- Add Pod/Container healthchecks settings for Kasm resources
-    applyHealthChecks: true
-    # restartPolicy -- Configure global Pod restart policy for Kasm resources
-    restartPolicy: "Always"
-
-    kasmConfig:
-      # kasmConfig.generatePreseed -- Enable generation of a custom DB initialization configuration to
-      # pre-configure Kasm during installation.
-      generatePreseed: false
-      # kasmConfig.defaultUsers -- Creates a series of 4 users and 5 groups with a standard set of
-      # permissions accommodating most standard deployment scenarios. Refer to the [Default Users](./docs/default-users.md)
-      # for additional information about what this flag creates.
-      defaultUsers: false
-      # kasmConfig.defaultApiUsers -- Creates two predefined sets of API credentials with permissions
-      # accommodating most standard deployment scenarios. Refer to the [Default API Users](./docs/default-api-users.md)
-      # for additional information about what this flag creates.
-      defaultApiUsers: false
-      # kasmConfig.adminUsername -- Change the username seeded on the admin-group member. Default: `admin@kasm.local`,
-      # the only true built-in admin account. Setting this to any other value seeds that account with generated
-      # (non-built-in) credentials stored under a `<local-part>-password`/`<local-part>-salt` key pair in the
-      # passwords/salts Secrets (e.g. `system@kasm.local` -> `system-password`) instead of the built-in
-      # admin-password-Secret-backed credentials. The chart will not create an `admin-password` key at all in that
-      # case, and the db-init Job will not be given a DEFAULT_ADMIN_PASSWORD env var. See docs/default-users.md.
-      adminUsername: "admin@kasm.local"
