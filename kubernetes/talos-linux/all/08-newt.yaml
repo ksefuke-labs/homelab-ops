@@ -1,0 +1,22 @@
+apiVersion: v1alpha1
+kind: ExtensionServiceConfig
+name: newt
+environment:
+    - ENC[AES256_GCM,data:L1EegfjiNbTaFbgljAhYxJoVpmkpSJrxqMU4kL4SJY50dDldYBZmFEtTwSqY0A==,iv:KHfYP9qcmhvgAng9GzGeKbUxvBpZ9dCmcp7CHwXBO5o=,tag:FWKMiM/JwV48LkbNsevgsw==,type:str]
+    - ENC[AES256_GCM,data:nCavtBFGj7N6rakGskGSEtsIVYzcgSI=,iv:8DLZy7JrEpalVW4FLc0szXWbF8/TECKwtz78OjaO/7E=,tag:bLEE8ii4YeunXefGyQks9Q==,type:str]
+    - ENC[AES256_GCM,data:4ROlpq26cJwfbigrjcWrIXyMbVbk9iIishEQTGZomj0wQbVG29aj687AKjKc7J2pUuVw/nSWAPitSC6l,iv:+ysJVc5hJb9ucs7v39+UTm94FEtKINE5MHPlHNNiGy8=,tag:11tj1R6R5yBTHH2I8PTung==,type:str]
+sops:
+    age:
+        - enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBNMTZUbmw3aE8vSEpxSkxY
+            Y0Zhd2ZUQ3ozT2NVbGxoc0ViWlhnMTduY3l3Cm1ld1dhOFY1dlRWTnZjRkJGZ2ZX
+            M0JZTVJnN3RNeTFNUnhMOGtnN2Q3ZzAKLS0tIFpYakVMNzVxMElLK0VjUkNQOGEz
+            UitIaWsxNkVWT09aZVQvZ2xhTlE0UFkK3NbBTef+3k9x4KQC6M/5QSipqzosXnSc
+            kSGzQM1HslQVPsFE1n0oYTicYHi2JL/SkFdy8n+KAkXc13okwOdLiA==
+            -----END AGE ENCRYPTED FILE-----
+          recipient: age1w0ptdg04h8e6d7nmwjj4unuphwstxrw8fmk9e7jhda28re6c8stqtfcsvt
+    encrypted_regex: ^(secret|bootstraptoken|secretboxencryptionSecret|aescbcEncryptionSecret|token|ca|crt|key|id|environment)$
+    lastmodified: "2026-10-18T20:18:57Z"
+    mac: ENC[AES256_GCM,data:d4e0deRkghWS2BTdKzElMOjJR7QX1UDTJLzhjlWjz0CX4GqTgjxc1nVBzVgnxd4a00tBperFPSmHDNKwlp2Sq7F/PCtigWaqkAqAMHP0seM7CyvIET1/nG+EANWddj9J7xPagG4CDS/u5riLOywY2R6OjzjURymINMI0+a3qWtg=,iv:FpybQDWxXcuFiBvNsMKP0SYZnjuDYxlPvrCPZ5mpHtg=,tag:OaLleZWLj2nKq0I9noKJYw==,type:str]
+    version: 3.13.3

@@ -1,0 +1,9 @@
+##138f1c296758960e9d86807d4acc7bff961afa655c6d843975677f7ea64de493
+customization:
+  systemExtensions:
+    officialExtensions:
+        - siderolabs/intel-ucode
+        - siderolabs/iscsi-tools
+        - siderolabs/newt
+        - siderolabs/qemu-guest-agent
+        - siderolabs/util-linux-tools

@@ -1,0 +1,49 @@
+apiVersion: v1alpha1
+kind: KubeExternalManifestConfig
+name: gateway-api-gatewayclasses
+url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_gatewayclasses.yaml
+---
+apiVersion: v1alpha1
+kind: KubeExternalManifestConfig
+name: gateway-api-gateways
+url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_gateways.yaml
+---
+apiVersion: v1alpha1
+kind: KubeExternalManifestConfig
+name: gateway-api-httproutes
+url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_httproutes.yaml
+---
+apiVersion: v1alpha1
+kind: KubeExternalManifestConfig
+name: gateway-api-referencegrants
+url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_referencegrants.yaml
+---
+apiVersion: v1alpha1
+kind: KubeExternalManifestConfig
+name: gateway-api-grpcroutes
+url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_grpcroutes.yaml
+---
+apiVersion: v1alpha1
+kind: KubeExternalManifestConfig
+name: gateway-api-backendtlspolicies
+url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_backendtlspolicies.yaml
+---
+apiVersion: v1alpha1
+kind: KubeExternalManifestConfig
+name: gateway-api-tlsroutes
+url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_tlsroutes.yaml
+---
+apiVersion: v1alpha1
+kind: KubeExternalManifestConfig
+name: gateway-api-grpcroutes
+url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_listenersets.yaml
+---
+apiVersion: v1alpha1
+kind: KubeExternalManifestConfig
+name: gateway-api-backendtlspolicies
+url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_tcproutes.yaml
+---
+apiVersion: v1alpha1
+kind: KubeExternalManifestConfig
+name: gateway-api-tlsroutes
+url: https://raw.githubusercontent.com/kubernetes-sigs/gateway-api/v1.6.3/config/crd/standard/gateway.networking.k8s.io_udproutes.yaml

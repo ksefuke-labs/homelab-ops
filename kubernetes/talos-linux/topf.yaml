@@ -1,0 +1,15 @@
+clusterName: ksefuke-labs
+clusterEndpoint: https://k8s.ksl.internal:6443
+kubernetesVersion: v1.37.1
+talosVersion: 1.14.4
+schematicId: 138f1c296758960e9d86807d4acc7bff961afa655c6d843975677f7ea64de493
+nodes:
+  - host: talos-dev-cn01
+    ip: 10.52.110.2
+    role: control-plane
+  - host: talos-dev-cn02
+    ip: 10.52.110.3
+    role: control-plane
+  - host: talos-dev-cn03
+    ip: 10.52.110.4
+    role: control-plane
