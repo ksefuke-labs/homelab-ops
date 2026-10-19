@@ -30,7 +30,7 @@ spec:
       # -- Setting that allows you to specify the default Longhorn StorageClass.
       defaultClass: true
       # -- Filesystem type of the default Longhorn StorageClass.
-      defaultFsType: xfs
+      defaultFsType: ext4
       defaultClassReplicaCount: 2
        # -- Data locality of the default Longhorn StorageClass. (Options: "disabled", "best-effort")
       defaultDataLocality: best-effort
