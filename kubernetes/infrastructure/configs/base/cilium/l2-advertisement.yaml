@@ -5,3 +5,10 @@ metadata:
 spec:
   loadBalancerIPs: true
   externalIPs: true
+  interfaces:
+    - ^eth+
+    - ^enp+
+    - ^ens+
+    - ^wlan+
+    - ^vmbr+
+    - ^wlp+
