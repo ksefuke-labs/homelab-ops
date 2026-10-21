@@ -18,7 +18,7 @@ spec:
       containers:
         - name: chrome
           image: ghcr.io/karakeep-app/karakeep-chrome:release
-          command:
+          args:
             - --disable-gpu
             - --disable-dev-shm-usage
             - --hide-scrollbars
